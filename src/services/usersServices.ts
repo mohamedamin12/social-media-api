@@ -137,8 +137,6 @@ const leaveGroupService = async (
   return { data: user, type: "success" };
 };
 
-
-
 const addNotificationsService = async (
   userId: string,
   notificationData: INotification
