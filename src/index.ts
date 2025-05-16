@@ -14,6 +14,7 @@ import postsRouter from "./routes/postsRoute";
 import pagesRouter from "./routes/pagesRoute";
 import chatsRouter from "./routes/chatsRoute";
 import searchRouter from "./routes/searchRoute";
+import authRouter from './routes/authRouter';
 
 
 const app = express();
@@ -61,6 +62,7 @@ app.use(express.urlencoded({ extended: true }));
 connectToDb();
 
 // Routes
+app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/groups", groupsRouter);
 app.use("/api/v1/posts", postsRouter);
