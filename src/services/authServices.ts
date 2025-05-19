@@ -10,9 +10,10 @@ const registerService = async (registerData: {
   username: string;
   email: string;
   password: string;
-  role?: string;
+  age: number;
+  gender: string;
 }): Promise<TServiceResult<IUser> & { token?: string }> => {
-  const { username, email, password, role } = registerData;
+  const { username, email, password , age , gender} = registerData;
 
   // Check if user already exists
   const existingUser = await User.findOne({ email });
@@ -33,7 +34,8 @@ const registerService = async (registerData: {
     username,
     email,
     password: hashedPassword,
-    role: role || "user",
+    age,
+    gender
   });
 
   // Generate JWT

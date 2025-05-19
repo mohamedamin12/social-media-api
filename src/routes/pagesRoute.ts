@@ -20,7 +20,7 @@ import removeReportValidation from "../utils/validations/removeReportValidation"
 const pagesRouter = Router();
 
 // Get all pages
-pagesRouter.route("/").get(getAllPages);
+pagesRouter.route("/").get(verifyToken,getAllPages);
 
 // Get page by id
 pagesRouter.route("/:pageId").get(getPageById);

@@ -25,7 +25,7 @@ import removeReportValidation from "../utils/validations/removeReportValidation"
 const postsRouter = Router();
 
 // Get All posts from [users, groups, pages];
-postsRouter.route("/").get(getAllPostsValidation(), getAllPosts);
+postsRouter.route("/").get(verifyToken , getAllPostsValidation() , getAllPosts);
 
 // Get post by ID
 postsRouter.route("/:postId").get(getPostById);
@@ -36,7 +36,7 @@ postsRouter
   .post(
     verifyToken,
     isAllowed("user", "superAdmin"),
-    upload.array("files", 100),
+    upload.array("postImages", 100),
     createPostValidation(),
     createPost
   );
@@ -44,7 +44,7 @@ postsRouter
 // Update post
 postsRouter
   .route("/:postId")
-  .patch(verifyToken, updatePostValidation(), updatePost);
+  .patch(verifyToken, isAllowed("user" , "superAdmin") ,updatePostValidation(), updatePost);
 
 // Remove a report
 postsRouter.route("/reports").delete(removeReportValidation(), removeReport);

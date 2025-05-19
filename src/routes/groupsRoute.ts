@@ -24,10 +24,10 @@ import removeReportValidation from "../utils/validations/removeReportValidation"
 const groupsRouter = Router();
 
 // Get all groups
-groupsRouter.route("/").get(getAllGroups);
+groupsRouter.route("/").get(verifyToken ,getAllGroups);
 
 // Get group by ID
-groupsRouter.route("/:groupId").get(getGroupById);
+groupsRouter.route("/:groupId").get(verifyToken , getGroupById);
 
 // Create group
 groupsRouter
@@ -35,42 +35,45 @@ groupsRouter
   .post(
     verifyToken,
     isAllowed("user", "superAdmin"),
-    upload.single("cover"),
+    upload.single("groupCover"),
     createGroupValidation(),
     createGroup
   );
 
+// Update group
 groupsRouter
   .route("/:groupId")
   .patch(
     verifyToken,
-    upload.single("cover"),
+    upload.single("groupCover"),
     updateGroupValidation(),
     updateGroup
   );
 
-// Remove a report
-groupsRouter.route("/reports").delete(removeReportValidation(), removeReport);
-
-// Delete group
-groupsRouter.route("/:groupId").delete(verifyToken, deleteGroup);
-
-// Join group
-groupsRouter
+  // Remove a report
+  groupsRouter.route("/reports").delete(removeReportValidation(), removeReport);
+  
+  // Delete group
+  groupsRouter.route("/:groupId").delete(verifyToken, deleteGroup);
+  
+  // Join group
+  groupsRouter
   .route("/:groupId/join")
   .post(verifyToken, joinGroupValidation(), joinGroup);
-
-// Handle join request
-groupsRouter
+  
+  // Handle join request
+  groupsRouter
   .route("/:groupId/join-requests")
   .post(verifyToken, handleJoinRequestValidation(), handleJoinRequests);
-
-// Leave group
-groupsRouter
+  
+  // Leave group
+  groupsRouter
   .route("/:groupId/leave")
   .post(verifyToken, userIdValidation(), leaveGroup);
-
-// Report a group
-groupsRouter.route("/reports").post(addReportValidation(), addReport);
-
-export default groupsRouter;
+  
+  
+  // Report a group
+  groupsRouter.route("/reports").post(addReportValidation(), addReport);
+  
+  
+  export default groupsRouter;

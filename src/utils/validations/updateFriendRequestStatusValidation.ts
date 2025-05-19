@@ -8,7 +8,7 @@ const updateFriendRequestStatusValidation = () => {
       .withMessage("New status is required")
       .customSanitizer((value) => value.toLowerCase()) // Convert to lowercase
       .isIn(["accepted", "declined"])
-      .withMessage("New status must be accpeted or declined"),
+      .withMessage("New status must be accepted or declined"),
   ];
 };
 

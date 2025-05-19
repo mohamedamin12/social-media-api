@@ -20,6 +20,7 @@
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
     "http": "^0.0.1-security",
+    "ioredis": "^5.6.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.14.2",
     "morgan": "^1.10.0",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.1",
+    "@types/ioredis": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",

@@ -103,10 +103,9 @@ const deleteUser = asyncWrapper(
     res: Response,
     next: NextFunction
   ): Promise<Response | void> => {
-    const { userId } = req.body;
+    const { userId } = req.params;
     console.log(userId);
     const deleteResult = await usersServices.deleteUserService(userId);
-    console.log(deleteResult);
     if (deleteResult.type === "error") {
       return next(deleteResult.error);
     }
@@ -221,7 +220,7 @@ const removeFromBlockList = asyncWrapper(
     } else {
       return res.status(200).json({
         status: httpStatusText.SUCCESS,
-        data: { message: "You have successfuly unblocked this user" },
+        data: { message: "You have successfully unblocked this user" },
       });
     }
   }

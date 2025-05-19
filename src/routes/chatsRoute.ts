@@ -8,11 +8,12 @@ import {
 import createChatValidation from "../utils/validations/createChatValidation";
 import sendMessageValidation from "../utils/validations/sendMessageValidation";
 import updateOrDeleteMessageValidation from "../utils/validations/updateOrDeleteMessageValidation";
+import verifyToken from "../middlewares/verifyToken";
 
 const chatsRouter = Router();
 
 // Get all chats by user id
-chatsRouter.route("/").get(getAllChats);
+chatsRouter.route("/").get(verifyToken ,getAllChats);
 
 // Create or get chat if it already exists
 chatsRouter.route("/").post(createChatValidation(), createOrGetChat);

@@ -23,19 +23,26 @@ import removeReportValidation from "../utils/validations/removeReportValidation"
 import verifyToken from "../middlewares/verifyToken";
 import addReportValidation from "../utils/validations/addReportValidation";
 import { addReport, removeReport } from "../controllers/reportsController";
+import isAllowed from "../middlewares/isAllowed";
 
 const usersRouter = Router();
 
 // Get all users
-usersRouter.route("/").get(getAllUsers);
+usersRouter.route("/").get(
+  verifyToken,
+  isAllowed("admin", "superAdmin"),
+  getAllUsers
+);
 
 // Get a user by ID
-usersRouter.route("/:userId").get(getUserById);
+usersRouter.route("/:userId").get(verifyToken, getUserById);
 
 // Create user
 usersRouter
   .route("/")
   .post(
+    verifyToken,
+    isAllowed("admin", "superAdmin"),
     upload.single("profilePicture"),
     createAndUpdateUserValidation(false),
     createUser
@@ -52,11 +59,19 @@ usersRouter
     updateUser
   );
 
-// Remove a report
-usersRouter.route("/reports").delete(removeReportValidation(), removeReport);
-
 // Delete user by ID
-usersRouter.route("/:userId").delete(verifyToken, deleteUser);
+usersRouter.route("/:userId").delete(
+  verifyToken, 
+  isAllowed("user", "superAdmin"),
+  deleteUser
+);
+
+// Remove a report
+usersRouter.route("/reports").delete(
+  verifyToken,
+  removeReportValidation(),
+  removeReport
+);
 
 // Add friend request by user ID
 usersRouter

@@ -98,8 +98,8 @@ const updateUserService = async (
 const deleteUserService = async (
   userId: string
 ): Promise<TServiceResult<IUser>> => {
-  const deletedUser = await User.deleteOne({ userId });
-  if (!deletedUser.deletedCount) {
+  const deletedUser = await User.findByIdAndDelete( userId );
+  if (!deletedUser) {
     const error = AppError.create("Invalid user id", 400, httpStatusText.ERROR);
     return { error, type: "error" };
   }
