@@ -8,13 +8,7 @@ import cors from "cors";
 import connectToDb from './config/connectToDb';
 import httpStatusText from "./utils/httpStatusText";
 import TGlobalError from "./types/globalErrorType";
-import usersRouter from "./routes/usersRoute";
-import groupsRouter from "./routes/groupsRoute";
-import postsRouter from "./routes/postsRoute";
-import pagesRouter from "./routes/pagesRoute";
-import chatsRouter from "./routes/chatsRoute";
-import searchRouter from "./routes/searchRoute";
-import authRouter from './routes/authRouter';
+import mainRouter from './routes/main';
 
 
 const app = express();
@@ -62,13 +56,7 @@ app.use(express.urlencoded({ extended: true }));
 connectToDb();
 
 // Routes
-app.use("/api/v1/auth", authRouter)
-app.use("/api/v1/users", usersRouter);
-app.use("/api/v1/groups", groupsRouter);
-app.use("/api/v1/posts", postsRouter);
-app.use("/api/v1/pages", pagesRouter);
-app.use("/api/v1/chats", chatsRouter);
-app.use("/api/v1/search", searchRouter);
+mainRouter(app);
 
 //* Global error handler
 app.use(

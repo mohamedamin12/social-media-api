@@ -2,7 +2,6 @@ import mongoose, { UpdateWriteOpResult } from "mongoose";
 import {
   User,
   IUser,
-  IFriendRequest,
   IUserGroup,
   INotification,
 } from "../models/usersModel";

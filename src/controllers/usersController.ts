@@ -12,7 +12,7 @@ const getAllUsers = asyncWrapper(
     const users = await usersServices.getAllUsersService();
     return res
       .status(200)
-      .json({ status: httpStatusText.SUCCESS, data: { users } });
+      .json({ status: httpStatusText.SUCCESS, length: users.length, data: { users } });
   }
 );
 
